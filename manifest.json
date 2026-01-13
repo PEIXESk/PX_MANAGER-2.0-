@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "PX MANAGER",
+  "version": "1.4.5",
+  "description": "Central de ocorrências logística: Scanner de picking e automação.",
+  "author": "PX Station",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "clipboardWrite",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "https://router.huggingface.co/*",
+    "https://*.gpa.digital/*",
+    "https://app.pipefy.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://picking-admin.backoffice.gpa.digital/*"
+      ],
+      "js": [
+        "ui/interface.js",
+        "extractors/gpa_picking.js",
+        "content_main.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "popup.html",
+        "popup.js",
+        "icon.png",
+        "ui/interface.js",
+        "extractors/gpa_picking.js"
+      ],
+      "matches": [
+        "https://picking-admin.backoffice.gpa.digital/*"
+      ]
+    }
+  ]
+}
